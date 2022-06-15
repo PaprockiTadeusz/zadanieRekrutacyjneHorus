@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 
 public class Wall implements Structure {
-    private List<Block> blocks;
+    private static List<Block> blocks;
 
     public Wall(List<Block> blocks) {
         this.blocks = blocks;
@@ -21,11 +21,17 @@ public class Wall implements Structure {
         listOfCompositeBlocks.add(new BrickBlock("blue", "composite"));
         listOfCompositeBlocks.add(new BrickBlock("green", "composite"));
 
+        List<Block> listOfCompositeBlocks2 = new ArrayList<>();
+        listOfCompositeBlocks2.add(new BrickBlock("red", "composite"));
+        listOfCompositeBlocks2.add(new BrickBlock("blue", "composite"));
+        listOfCompositeBlocks2.add(new BrickBlock("green", "composite"));
+
         listOfBlocks.add(new BrickBlock("red", "clay"));
         listOfBlocks.add(new BrickBlock("red", "clay"));
         listOfBlocks.add(new BrickBlock("blue", "stone"));
         listOfBlocks.add(new BrickBlock("yellow", "clay"));
         listOfBlocks.add(new CompositeBrickBlock("mixed", "composite", listOfCompositeBlocks));
+        listOfBlocks.add(new CompositeBrickBlock("mixed", "composite", listOfCompositeBlocks2));
 
         Wall wall = new Wall(listOfBlocks);
 
@@ -33,17 +39,17 @@ public class Wall implements Structure {
                 + "Find block by color \"green\": " + wall.findBlockByColor("green") + "\n"
                 + "Number of all blocks in the wall : " + wall.count() + "\n");
         System.out.println("Colors of all blocks");
-        wall.makeAnListOfAllBlocks().stream().forEach(x -> System.out.println(x.getColor()));
+        wall.makeAnListOfAllBlocks(blocks).stream().forEach(x -> System.out.println(x.getColor()));
 
     }
 
-    public List<Block> makeAnListOfAllBlocks(){
+    public static List<Block> makeAnListOfAllBlocks(List<Block> blocks){
 
         List<Block> result = new ArrayList<>();
-        for (Block block : blocks) {
-            if (block instanceof CompositeBrickBlock) {
+        for(Block block : blocks){
+            if(block instanceof CompositeBrickBlock){
                 result.addAll(((CompositeBrickBlock) block).getBlocks());
-            } else {
+            }else{
                 result.add(block);
             }
         }
@@ -53,7 +59,7 @@ public class Wall implements Structure {
     @Override
     public Optional findBlockByColor(String color) {
 
-          return makeAnListOfAllBlocks().stream()
+          return makeAnListOfAllBlocks(blocks).stream()
                   .filter(x -> x.getColor().equals(color))
                   .findAny();
 
@@ -61,14 +67,14 @@ public class Wall implements Structure {
 
     @Override
     public List findBlocksByMaterial(String material) {
-        return makeAnListOfAllBlocks().stream()
+        return makeAnListOfAllBlocks(blocks).stream()
                 .filter(x -> x.getMaterial().equals(material))
                 .collect(Collectors.toList());
     }
 
     @Override
     public int count() {
-        return makeAnListOfAllBlocks().size();
+        return makeAnListOfAllBlocks(blocks).size();
     }
 }
 
