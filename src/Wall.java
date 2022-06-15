@@ -25,13 +25,13 @@ public class Wall implements Structure {
         listOfCompositeBlocks2.add(new BrickBlock("red", "composite"));
         listOfCompositeBlocks2.add(new BrickBlock("blue", "composite"));
         listOfCompositeBlocks2.add(new BrickBlock("green", "composite"));
+        listOfCompositeBlocks.add(new CompositeBrickBlock("red", "composite", listOfCompositeBlocks2));
 
         listOfBlocks.add(new BrickBlock("red", "clay"));
         listOfBlocks.add(new BrickBlock("red", "clay"));
         listOfBlocks.add(new BrickBlock("blue", "stone"));
         listOfBlocks.add(new BrickBlock("yellow", "clay"));
         listOfBlocks.add(new CompositeBrickBlock("mixed", "composite", listOfCompositeBlocks));
-        listOfBlocks.add(new CompositeBrickBlock("mixed", "composite", listOfCompositeBlocks2));
 
         Wall wall = new Wall(listOfBlocks);
 
@@ -48,7 +48,7 @@ public class Wall implements Structure {
         List<Block> result = new ArrayList<>();
         for(Block block : blocks){
             if(block instanceof CompositeBrickBlock){
-                result.addAll(((CompositeBrickBlock) block).getBlocks());
+                result.addAll(makeAnListOfAllBlocks(((CompositeBrickBlock) block).getBlocks()));
             }else{
                 result.add(block);
             }
