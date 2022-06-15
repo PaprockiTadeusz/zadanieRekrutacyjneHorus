@@ -25,8 +25,15 @@ public class Wall implements Structure {
         listOfCompositeBlocks2.add(new BrickBlock("red", "composite"));
         listOfCompositeBlocks2.add(new BrickBlock("blue", "composite"));
         listOfCompositeBlocks2.add(new BrickBlock("green", "composite"));
-        listOfCompositeBlocks.add(new CompositeBrickBlock("red", "composite", listOfCompositeBlocks2));
 
+        List<Block> listOfCompositeBlocks3 = new ArrayList<>();
+        listOfCompositeBlocks3.add(new BrickBlock("red", "composite"));
+        listOfCompositeBlocks3.add(new BrickBlock("blue", "composite"));
+        listOfCompositeBlocks3.add(new BrickBlock("green", "composite"));
+        listOfCompositeBlocks3.add(new BrickBlock("green", "composite"));
+        listOfCompositeBlocks2.add(new CompositeBrickBlock("red", "composite", listOfCompositeBlocks3));
+
+        listOfCompositeBlocks.add(new CompositeBrickBlock("red", "composite", listOfCompositeBlocks2));
         listOfBlocks.add(new BrickBlock("red", "clay"));
         listOfBlocks.add(new BrickBlock("red", "clay"));
         listOfBlocks.add(new BrickBlock("blue", "stone"));
